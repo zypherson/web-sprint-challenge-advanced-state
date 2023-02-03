@@ -8,6 +8,7 @@ import Quiz from './Quiz'
 import Message from './Message'
 import Form from './Form'
 
+
 // REDUX IMPORTS
 import { createStore, applyMiddleware, compose } from 'redux'
 import { Provider } from 'react-redux'
@@ -23,6 +24,7 @@ export const resetStore = () => {
 resetStore()
 
 export default function App() {
+  
   return (
     <Provider store={store}>
       <BrowserRouter>
@@ -42,3 +44,4 @@ export default function App() {
     </Provider>
   )
 }
+
