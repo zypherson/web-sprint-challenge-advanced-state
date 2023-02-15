@@ -1,6 +1,20 @@
-import React from 'react'
+import React, {useEffect} from 'react'
+import { connect } from 'react-redux'
+import { selectAnswer } from '../state/action-creators'
+import { fetchQuiz } from '../state/action-creators'
 
-export default function Quiz(props) {
+export function Quiz(props) {
+
+  const {fetchQuiz, answer, quiz} = props
+
+  useEffect(() => {
+    console.log('first', props)
+      console.log(fetchQuiz())
+    console.log('second')
+  }, [])
+
+  console.log('quiz', props.quiz)
+  console.log('answer', props.answer)
   return (
     <div id="wrapper">
       {
@@ -8,11 +22,11 @@ export default function Quiz(props) {
         true ? (
           <>
             <h2>What is a closure?</h2>
-
+            
             <div id="quizAnswers">
-              <div className="answer selected">
+              <div className={`answer ${  null ? ' selected' : '' }` }>
                 A function
-                <button>
+                <button >
                   SELECTED
                 </button>
               </div>
@@ -32,3 +46,13 @@ export default function Quiz(props) {
     </div>
   )
 }
+
+const mapStateToProps = (state) => {
+  return({
+    quiz: state.quiz,
+    answer: state.answer
+  })
+}
+
+
+export default connect(mapStateToProps, {selectAnswer, fetchQuiz} )(Quiz)
