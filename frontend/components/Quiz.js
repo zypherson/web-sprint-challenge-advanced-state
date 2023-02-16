@@ -9,12 +9,16 @@ export function Quiz(props) {
 
   useEffect(() => {
     console.log('first', props)
-      console.log(fetchQuiz())
+     if (!quiz){
+      fetchQuiz()
+     } 
     console.log('second')
   }, [])
 
-  console.log('quiz', props.quiz)
+  console.log('quiz', quiz)
+  console.log(quiz.question)
   console.log('answer', props.answer)
+  
   return (
     <div id="wrapper">
       {
