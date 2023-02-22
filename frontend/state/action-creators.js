@@ -23,7 +23,9 @@ export function selectAnswer(answer) {
 }
 
 
-export function setMessage() { }
+export function setMessage() { 
+
+}
 
 
 
@@ -44,6 +46,7 @@ export function fetchQuiz() {
       .then(res=> {
         console.log('api date', res.data.question)
         dispatch(setQuiz(res.data))
+        
       })
   }
 }

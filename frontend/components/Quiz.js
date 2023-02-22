@@ -3,42 +3,69 @@ import { connect } from 'react-redux'
 import { selectAnswer } from '../state/action-creators'
 import { fetchQuiz } from '../state/action-creators'
 
+//handle submit answer click function
+//post request
+
+
+//handle select answer click
+//select answer
+
+
 export function Quiz(props) {
 
-  const {fetchQuiz, answer, quiz} = props
+  const {fetchQuiz, answer, selectAnswer, quiz} = props
+  
 
-  useEffect(() => {
-    console.log('first', props)
+  useEffect(() => { 
      if (!quiz){
       fetchQuiz()
      } 
-    console.log('second')
   }, [])
 
-  console.log('quiz', quiz)
-  console.log(quiz.question)
-  console.log('answer', props.answer)
+  function changeButtonText() {
+    var button = document.getElementById("select");
+    button.innerHTML = "Selected";
+
+    var button2 = document.getElementById("select2")
+    button2.innerHTML = "Select"
+  }
   
+  function changeButtonText2() {
+    var button = document.getElementById("select2");
+    button.innerHTML = "Selected";
+
+    var button1 = document.getElementById("select")
+    button1.innerHTML = "Select"
+  }
+
+
+
+  
+  console.log('quiz', answer)
+  //console.log(quiz.question)
+ 
+   
   return (
+  
     <div id="wrapper">
       {
         // quiz already in state? Let's use that, otherwise render "Loading next quiz..."
-        true ? (
+        quiz ? (
           <>
-            <h2>What is a closure?</h2>
+            <h2>{quiz.question}</h2>
             
             <div id="quizAnswers">
-              <div className={`answer ${  null ? ' selected' : '' }` }>
-                A function
-                <button >
-                  SELECTED
+            <div className={`answer ${quiz.answers[0].answer_id=== answer?.answer_id  ? ' selected' : '' }` }>
+                {quiz.answers[0].text}
+                <button  onClick={()=>selectAnswer(quiz.answers[0])}  >
+                  {quiz.answers[0].answer_id === answer?.answer_id ? 'SELECTED' : 'Select'}
                 </button>
               </div>
 
-              <div className="answer">
-                An elephant
-                <button>
-                  Select
+              <div className={`answer ${quiz.answers[1].answer_id=== answer?.answer_id  ? ' selected' : '' }` }>
+              {quiz.answers[1].text}
+                <button onClick={()=>selectAnswer(quiz.answers[1])}>
+                {quiz.answers[1].answer_id === answer?.answer_id ? 'SELECTED' : 'Select'}
                 </button>
               </div>
             </div>
@@ -49,12 +76,16 @@ export function Quiz(props) {
       }
     </div>
   )
+  
 }
 
+
 const mapStateToProps = (state) => {
+  console.log(state)
   return({
+
     quiz: state.quiz,
-    answer: state.answer
+    answer: state.selectedAnswer
   })
 }
 
