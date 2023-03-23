@@ -2,6 +2,7 @@ import React, {useEffect} from 'react'
 import { connect } from 'react-redux'
 import { selectAnswer } from '../state/action-creators'
 import { fetchQuiz } from '../state/action-creators'
+import { postAnswer } from '../state/action-creators'
 
 //handle submit answer click function
 //post request
@@ -13,7 +14,7 @@ import { fetchQuiz } from '../state/action-creators'
 
 export function Quiz(props) {
 
-  const {fetchQuiz, answer, selectAnswer, quiz} = props
+  const {fetchQuiz, answer, selectAnswer, quiz, postAnswer} = props
   
 
   useEffect(() => { 
@@ -22,27 +23,27 @@ export function Quiz(props) {
      } 
   }, [])
 
-  function changeButtonText() {
-    var button = document.getElementById("select");
-    button.innerHTML = "Selected";
+  //console.log('test', props?.quiz.quiz_id)
 
-    var button2 = document.getElementById("select2")
-    button2.innerHTML = "Select"
-  }
+const onSubmit = (evt) => {
+  console.log('submit')
+  evt.preventDefault();
+  const answerObj = {
+    quiz_id: quiz.quiz_id,
+    answer_id: answer.answer_id
+    }
+  postAnswer(answerObj)
+}
+
+
+
+
+
+
+
   
-  function changeButtonText2() {
-    var button = document.getElementById("select2");
-    button.innerHTML = "Selected";
-
-    var button1 = document.getElementById("select")
-    button1.innerHTML = "Select"
-  }
-
-
-
-  
-  console.log('quiz', answer)
-  //console.log(quiz.question)
+  console.log('answer', answer )
+   //console.log(quiz.question)
  
    
   return (
@@ -70,7 +71,7 @@ export function Quiz(props) {
               </div>
             </div>
 
-            <button id="submitAnswerBtn">Submit answer</button>
+            <button id="submitAnswerBtn" onClick={onSubmit}>Submit answer</button>
           </>
         ) : 'Loading next quiz...'
       }
@@ -81,7 +82,7 @@ export function Quiz(props) {
 
 
 const mapStateToProps = (state) => {
-  console.log(state)
+  console.log()
   return({
 
     quiz: state.quiz,
@@ -90,4 +91,4 @@ const mapStateToProps = (state) => {
 }
 
 
-export default connect(mapStateToProps, {selectAnswer, fetchQuiz} )(Quiz)
+export default connect(mapStateToProps, {selectAnswer, fetchQuiz, postAnswer} )(Quiz)
