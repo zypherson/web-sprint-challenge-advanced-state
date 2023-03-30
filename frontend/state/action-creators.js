@@ -89,14 +89,13 @@ export function postQuiz(form) {
     // - Dispatch the resetting of the form
 
     axios.post(url2,form)
-      .then(res => {
+      .then( res => {
        console.log(res)
-       //dispatch(inputChange())
-       dispatch(setMessage(res.data.message))
+       dispatch(setMessage(`Congrats: "${res.data.question}" is a great question!`))
        dispatch(resetForm())
     })
     .catch(err=> {
-      console.log('error', err)
+      console.log('rror', err)
     })
   }
 }
