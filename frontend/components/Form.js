@@ -37,6 +37,8 @@ export function Form(props) {
     postQuiz(formObj)
     
 }
+const isDisabled = Object.values(form).some(value => !value.trim().length)
+
 
   return (
     <form id="form" onSubmit={onSubmit}>
@@ -44,27 +46,9 @@ export function Form(props) {
       <input maxLength={50} onChange={onChange} id="newQuestion" name='newQuestion' value={form.newQuestion} placeholder="Enter question" />
       <input maxLength={50} onChange={onChange} id="newTrueAnswer" name='newTrueAnswer' value={form.newTrueAnswer} placeholder="Enter true answer" />
       <input maxLength={50} onChange={onChange} id="newFalseAnswer" name='newFalseAnswer' value={form.newFalseAnswer} placeholder="Enter false answer" />
-      <button id="submitNewQuizBtn" disabled={false}>Submit new quiz</button>
+      <button id="submitNewQuizBtn" disabled={isDisabled}>Submit new quiz</button>
     </form>
   )
-}
-
-const newQuestionInput = document.getElementById('newQuestion');
-const newTrueAnswerInput = document.getElementById('newTrueAnswer');
-const newFalseAnswerInput = document.getElementById('newFalseAnswer');
-const submitButton = document.getElementById('submitNewQuizBtn');
-
-/*newQuestionInput.addEventListener('input', validateInputs);
-newTrueAnswerInput.addEventListener('input', validateInputs);
-newFalseAnswerInput.addEventListener('input', validateInputs);
-*/
-
-function validateInputs() {
-  if (newQuestionInput.value.length > 0 && newTrueAnswerInput.value.length > 0 && newFalseAnswerInput.value.length > 0) {
-    submitButton.disabled = false;
-  } else {
-    submitButton.disabled = true;
-  }
 }
 
 

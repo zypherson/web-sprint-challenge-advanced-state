@@ -39,13 +39,12 @@ const onSubmit = (evt) => {
 
 
 
+console.log('answer', answer )
 
 
-  
-  console.log('answer', answer )
-   //console.log(quiz.question)
- 
-   
+const isDisabled = answer === null
+
+
   return (
   
     <div id="wrapper">
@@ -71,7 +70,7 @@ const onSubmit = (evt) => {
               </div>
             </div>
 
-            <button id="submitAnswerBtn" onClick={onSubmit}>Submit answer</button>
+            <button id="submitAnswerBtn" onClick={onSubmit} disabled={isDisabled} > Submit answer</button>
           </>
         ) : 'Loading next quiz...'
       }
@@ -79,6 +78,7 @@ const onSubmit = (evt) => {
   )
   
 }
+
 
 
 const mapStateToProps = (state) => {
